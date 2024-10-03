@@ -11,7 +11,7 @@ project "libmysofa"
         "hrtf",
         "resampler",
         "hdf",
-        "./"
+        "./",
         "../../zlib"
     }
 
