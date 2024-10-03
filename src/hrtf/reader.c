@@ -372,9 +372,6 @@ MYSOFA_EXPORT struct MYSOFA_HRTF *mysofa_load(const char *filename, int *err) {
 
   struct READER reader;
 
-  if (filename == NULL)
-    filename = CMAKE_INSTALL_PREFIX "/share/libmysofa/default.sofa";
-
   if (strcmp(filename, "-"))
     reader.fhd = fopen(filename, "rb");
   else
