@@ -3,7 +3,9 @@
 #.project
 #.cproject
 bin/
+src/obj/
 .settings/
+Makefile
 
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion
