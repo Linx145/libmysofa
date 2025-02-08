@@ -45,3 +45,22 @@ project "libmysofa"
     filter "configurations:Release"
         defines { "NDEBUG" }
         optimize "On"
+
+project "sofa2json"
+    kind "ConsoleApp"
+    language "C"
+    cdialect "C99"
+    rtti "Off"
+    exceptionhandling "Off"
+    staticruntime "Off"
+    targetdir "../bin/%{cfg.buildcfg}"
+    includedirs {
+        "hrtf",
+        "tests",
+        "resampler",
+        "hdf",
+        "./",
+        "../../zlib"
+    }
+    files { "tests/sofa2json.c", "tests/json.c" }
+    links { "libmysofa", "zlib-lib" }

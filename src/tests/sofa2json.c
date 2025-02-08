@@ -12,7 +12,6 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <unistd.h>
 
 struct {
   int err;
@@ -63,15 +62,21 @@ static void usage(const char *exe) {
 }
 
 int main(int argc, char **argv) {
+  if (argc != 3)
+  {
+    fprintf(stderr, "Expected 3 arguments, received %i instead\n", argc);
+    return 1;
+  }
   struct MYSOFA_HRTF *hrtf = NULL;
   int err = 0;
-  int sanitize = 0;
+  int sanitize = 1;
   int check = 0;
-  char *filename, *output = NULL;
+  char *filename = argv[1];
+  char *output = argv[2];
   int opt;
-  FILE *out = stdout;
+  FILE *out = NULL;
 
-  while ((opt = getopt(argc, argv, "cso:")) != -1) {
+  /*while ((opt = getopt(argc, argv, "cso:")) != -1) {
     switch (opt) {
     case 's':
       sanitize = 1;
@@ -82,7 +87,7 @@ int main(int argc, char **argv) {
     case 'o':
       output = optarg;
       break;
-    default: /* '?' */
+    default:
       usage(argv[0]);
     }
   }
@@ -90,7 +95,7 @@ int main(int argc, char **argv) {
   if (optind + 1 != argc)
     usage(argv[0]);
 
-  filename = argv[optind];
+  filename = argv[optind];*/
 
   if (output) {
     out = fopen(output, "w");
