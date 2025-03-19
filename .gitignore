@@ -6,6 +6,7 @@ bin/
 src/obj/
 .settings/
 Makefile
+*.make
 
 ### JetBrains template
 # Covers JetBrains IDEs: IntelliJ, RubyMine, PhpStorm, AppCode, PyCharm, CLion

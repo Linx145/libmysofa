@@ -19,10 +19,10 @@ endif
 # #############################################
 
 ifeq ($(origin CC), default)
-  CC = clang
+  CC = gcc
 endif
 ifeq ($(origin CXX), default)
-  CXX = clang++
+  CXX = g++
 endif
 ifeq ($(origin AR), default)
   AR = ar
@@ -32,7 +32,6 @@ INCLUDES += -Ihrtf -Iresampler -Ihdf -I. -I../../zlib
 FORCE_INCLUDE +=
 ALL_CPPFLAGS += $(CPPFLAGS) -MD -MP $(DEFINES) $(INCLUDES)
 ALL_RESFLAGS += $(RESFLAGS) $(DEFINES) $(INCLUDES)
-ALL_LDFLAGS += $(LDFLAGS) -L/usr/lib64 -m64 -fuse-ld=lld -g
 LINKCMD = $(AR) -rcs "$@" $(OBJECTS)
 define PREBUILDCMDS
 endef
@@ -43,23 +42,25 @@ endef
 
 ifeq ($(config),debug)
 TARGETDIR = ../bin/Debug
-TARGET = $(TARGETDIR)/libmysofa.lib
+TARGET = $(TARGETDIR)/liblibmysofa.a
 OBJDIR = obj/Debug/libmysofa
-DEFINES += -DETERNITY_DOTNET -DWINDOWS -D_WIN32 -DGLFW_EXPOSE_NATIVE_WIN32 -DDEBUG
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -g -std=c99 -fpermissive -g -gcodeview
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -g -fno-exceptions -fno-rtti -fpermissive -g -gcodeview
-LIBS += ../../zlib/bin/Debug/zlib-lib.lib
-LDDEPS += ../../zlib/bin/Debug/zlib-lib.lib
+DEFINES += -DETERNITY_DOTNET -DLINUX -DPOSIX -DGLFW_EXPOSE_NATIVE_X11 -DX11 -D_DEFAULT_SOURCE -DDEBUG
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -g -std=c17 -fpermissive -g -gcodeview
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -g -fno-exceptions -fno-rtti -fpermissive -g -gcodeview
+LIBS += ../../zlib/bin/Debug/libzlib-lib.a
+LDDEPS += ../../zlib/bin/Debug/libzlib-lib.a
+ALL_LDFLAGS += $(LDFLAGS) -g
 
 else ifeq ($(config),release)
 TARGETDIR = ../bin/Release
-TARGET = $(TARGETDIR)/libmysofa.lib
+TARGET = $(TARGETDIR)/liblibmysofa.a
 OBJDIR = obj/Release/libmysofa
-DEFINES += -DETERNITY_DOTNET -DWINDOWS -D_WIN32 -DGLFW_EXPOSE_NATIVE_WIN32 -DNDEBUG
-ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -std=c99 -fpermissive -g -gcodeview
-ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -m64 -O2 -fno-exceptions -fno-rtti -fpermissive -g -gcodeview
-LIBS += ../../zlib/bin/Release/zlib-lib.lib
-LDDEPS += ../../zlib/bin/Release/zlib-lib.lib
+DEFINES += -DETERNITY_DOTNET -DLINUX -DPOSIX -DGLFW_EXPOSE_NATIVE_X11 -DX11 -D_DEFAULT_SOURCE -DNDEBUG
+ALL_CFLAGS += $(CFLAGS) $(ALL_CPPFLAGS) -O2 -std=c17 -fpermissive -g -gcodeview
+ALL_CXXFLAGS += $(CXXFLAGS) $(ALL_CPPFLAGS) -O2 -fno-exceptions -fno-rtti -fpermissive -g -gcodeview
+LIBS += ../../zlib/bin/Release/libzlib-lib.a
+LDDEPS += ../../zlib/bin/Release/libzlib-lib.a
+ALL_LDFLAGS += $(LDFLAGS) -s -g
 
 endif
 

@@ -1,7 +1,7 @@
 project "libmysofa"
     kind "StaticLib"
     language "C"
-    cdialect "C99"
+    cdialect "C17"
     rtti "Off"
     exceptionhandling "Off"
     staticruntime "Off"
@@ -14,6 +14,9 @@ project "libmysofa"
         "./",
         "../../zlib"
     }
+
+    filter "system:linux"
+        defines { "_DEFAULT_SOURCE" }
 
     files { 
         "hrtf/reader.c",

@@ -15,6 +15,10 @@
 #include <stdlib.h>
 #include <string.h>
 
+#ifndef M_PI
+#define M_PI 3.141592654
+#endif
+
 char *mysofa_strdup(const char *str) {
   size_t size = strlen(str) + 1;
   char *copy = malloc(size);
