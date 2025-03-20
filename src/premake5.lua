@@ -15,9 +15,6 @@ project "libmysofa"
         "../../zlib"
     }
 
-    filter "system:linux"
-        defines { "_DEFAULT_SOURCE" }
-
     files { 
         "hrtf/reader.c",
         "hdf/superblock.c",
@@ -40,6 +37,9 @@ project "libmysofa"
         "hrtf/cache.c",
         "resampler/speex_resampler.c"
     }
+
+    filter "system:linux"
+        defines { "_DEFAULT_SOURCE" }
         
     filter "configurations:Debug"
         defines { "DEBUG" }
